@@ -1,10 +1,6 @@
-<html>
-    <head>
-    </head>
-    <body>
 <?php
 session_start();
-$username = $_POST["username"];
+$username = $_POST['username'];
 $password = $_POST['password'];
 //server name, username, password, dbname
 $conn = new mysqli('localhost','root','','grocery_data');
@@ -39,5 +35,3 @@ if (mysqli_num_rows($result)===1) {
 }
 }
 ?>
-    </body>
-</html>

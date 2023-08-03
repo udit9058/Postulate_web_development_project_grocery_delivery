@@ -1,192 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Store</title>
-  <link rel="stylesheet" href="css/stylesheet.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grocery Web App</title>
+<link rel="stylesheet" href="css/stylesheet.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-
 </head>
+
 <body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script> 
+        crossorigin="anonymous"></script>
+    <!-- Here ths navigation starts -->
 
-<nav class="navbar navbar-dark bg-dark fixed-top">
-  <div class="container-fluid">
+    <nav class="navbar navbar-dark bg-black text-white fixed-top">
+        <div class="container-fluid">
             <a class="navbar-brand" href="#">Maligai (Grocery)</a>
-                <button type="button" class="btn btn-outline-light">
-            <?php
-                        $conn = new mysqli('localhost','root','','grocery_data');
-                        $sel = "SELECT * FROM signup";
-                        $query = mysqli_query($conn, $sel);
-                        $result = mysqli_fetch_assoc($query);
-                        ?>
-                        <p>Welcome , <?php echo $result['username']; ?> </p>
-            </button>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-                aria-labelledby="offcanvasDarkNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Grocery</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                        
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="http://localhost:8080/Grocery_app/home2.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:8080/grocery_app/store.php">Store</a>
-                        </li>
-                        <li class="nav-item">
+            <div class="d-flex">
+                <button type="button" class="btn btn-success btn-lg ms-3">
+                    <a class="nav-link btn btn-success" href="mycart.html">
+                        <i class="fas fa-shopping-cart"></i> My Cart
+                    </a>
+                </button>
+                <?php
+                session_start();
+                $conn = new mysqli('localhost', 'root', '', 'grocery_data');
+                $result = $_SESSION['username'];
+                ?>
+                <button type="button" class="btn btn-success btn-lg ms-3">
+                    <p>Welcome,
+                        <?php echo $result; ?>
+                    </p>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                    aria-labelledby="offcanvasDarkNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Grocery</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="home2.php">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="store.php">Store</a>
+                            </li>
+                            <!-- <li class="nav-item">
                             <a class="nav-link" href="#">Cart</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact us</a>
-                        </li>
+                        </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a class="btn btn-success btn-lg" href="home.html" role="button" onclick="logoutmsg()">Log out</a>
+                </div>
+    </nav>
+
+    <hr>
+
+    <div class="container mt-5">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                    aria-selected="true">Dairy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                    aria-controls="profile" aria-selected="false">Fruits</a>
+            </li>
+        </ul>
+        <form action="store.php" method="post">
+        <!-- Dairy -->
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container mt-5">
+                    <h1>Dairy </h1>
+                    <div class="row">
+                        <!-- Milk card -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            
+                            <div class="card">
+                                <img src="https://5.imimg.com/data5/VG/AQ/MY-9101930/amul-taaza-toned-milk-500x500.jpg"
+                                    class="card-img-top" alt="Milk">
+                                <div class="card-body">
+                                    <h5 class="card-title">Milk</h5>
+                                    <p class="card-text">1Litre - Price: ₹50</p>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" placeholder="Quantity" min="1"
+                                            value="1">
+                                        <button class="btn btn-primary"
+                                            onclick="addToCart('Milk', 50, this.previousElementSibling.value)">Add to
+                                            Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <!-- Curd card -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card">
+                                <img src="https://m.media-amazon.com/images/I/51bDLPPcieL._AC_UF894,1000_QL80_.jpg"
+                                    class="card-img-top" alt="Curd">
+                                <div class="card-body">
+                                    <h5 class="card-title">1Curd</h5>
+                                    <p class="card-text">1Litre - Price: ₹40</p>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" placeholder="Quantity" min="1"
+                                            value="1">
+                                        <button class="btn btn-primary"
+                                            onclick="addToCart('Curd', 40, this.previousElementSibling.value)">Add to
+                                            Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Paneer card -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card">
+                                <img src="https://5.imimg.com/data5/XM/BG/MY-57539521/frozen-malai-paneer-500x500.jpeg"
+                                    class="card-img-top" alt="Paneer">
+                                <div class="card-body">
+                                    <h5 class="card-title">Paneer</h5>
+                                    <p class="card-text">100g - Price: ₹100</p>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" placeholder="Quantity" min="1"
+                                            value="1">
+                                        <button class="btn btn-primary"
+                                            onclick="addToCart('Paneer', 100, this.previousElementSibling.value)">Add to
+                                            Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cheese card -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card">
+                                <img src="https://www.jiomart.com/images/product/original/490007992/amul-cheese-slices-100-g-pack-product-images-o490007992-p590087443-1-202205172212.jpg?im=Resize=(420,420)"
+                                    class="card-img-top" alt="Cheese">
+                                <div class="card-body">
+                                    <h5 class="card-title">100g - Cheese</h5>
+                                    <p class="card-text">Price: ₹80</p>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" placeholder="Quantity" min="1"
+                                            value="1">
+                                        <button class="btn btn-primary"
+                                            onclick="addToCart('Cheese', 80, this.previousElementSibling.value)">Add to
+                                            Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- JavaScript for Bootstrap components -->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+                    crossorigin="anonymous"></script>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <!-- Category-specific content for Fruits -->
+            <div class="container mt-5">
+                <h1>Fresh Fruits</h1>
+                <div class="row">
+                    <!-- Apple card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="https://st2.depositphotos.com/7036298/10694/i/950/depositphotos_106948346-stock-photo-ripe-red-apple-with-green.jpg"
+                                class="card-img-top" alt="Apple">
+                            <div class="card-body">
+                                <h5 class="card-title">Apple</h5>
+                                <p class="card-text">Price: ₹50 per kg</p>
+                                <div class="input-group mb-3">
+                                    <input type="number" class="form-control" placeholder="Quantity" min="1" value="1">
+                                    <button class="btn btn-primary"
+                                        onclick="addToCart('Apple', 50, this.previousElementSibling.value)">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mango card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbyxBlu_7uhe8CxqJpkaEsqElc7zmOPLZFhBkIA1F5FT4zbouH7Qorg3BG4ibJNfK11e8&usqp=CAU"
+                                class="card-img-top" alt="Mango">
+                            <div class="card-body">
+                                <h5 class="card-title">Mango</h5>
+                                <p class="card-text">Price: ₹60 per kg</p>
+                                <div class="input-group mb-3">
+                                    <input type="number" class="form-control" placeholder="Quantity" min="1" value="1">
+                                    <button class="btn btn-primary"
+                                        onclick="addToCart('Mango', 60, this.previousElementSibling.value)">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Banana card -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="https://i.pinimg.com/1200x/b8/39/3c/b8393ccd0f271772cc7d4796857637a9.jpg"
+                                class="card-img-top" alt="Banana">
+                            <div class="card-body">
+                                <h5 class="card-title">Banana</h5>
+                                <p class="card-text">Price: ₹30 per dozen</p>
+                                <div class="input-group mb-3">
+                                    <input type="number" class="form-control" placeholder="Quantity" min="1" value="1">
+                                    <button class="btn btn-primary"
+                                        onclick="addToCart('Banana', 30, this.previousElementSibling.value)">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <!-- Footer section -->
+    <footer class="footer bg-black text-white text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Contact Information:</h4>
+                    <p>Email: contact@example.com</p>
+                    <p>Phone: #</p>
+                    <h5><i>Created with 💖 byPostulate Intern team 2</i></h5>
+                </div>
+                <div class="col-md-6">
+                    <h4>Follow Us</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
                     </ul>
                 </div>
-
-                <a class="btn btn-success btn-lg" href="home.html" role="button">Log out</a>
             </div>
-</nav>
-    
-  <div class="container mt-5">
-    <h1>Store near by you</h1>
-
-    <!-- Form to enter shop name -->
-    <form id="shopForm" class="mt-4">
-      <div class="form-group">
-        <label for="shopName">Maligaikkadai</label>
-        <input type="text" class="form-control" id="shopName" value="maligaiakadai" readonly>
-      </div>
-    </form>
-
-    <div class="row mt-4">
-      <div class="col-md-6">
-        <h2>Items Available:</h2>
-        <!-- First Item - Potato -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Potato</h5>
-            <p class="card-text">Price: Rs. 20 per kg</p>
-            <div class="form-group">
-              <label for="itemQuantityPotato">Quantity:</label>
-              <input type="number" class="form-control" id="itemQuantityPotato" required>
-            </div>
-            <button class="btn btn-primary" onclick="addToCart('Potato', 20, document.getElementById('itemQuantityPotato').value)">Add to Cart</button>
-          </div>
         </div>
-        <!-- Second Item - Another Item -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Another Item</h5>
-            <p class="card-text">Price: Rs. 30 per item</p>
-            <div class="form-group">
-              <label for="itemQuantityAnother">Quantity:</label>
-              <input type="number" class="form-control" id="itemQuantityAnother" required>
-            </div>
-            <button class="btn btn-primary" onclick="addToCart('Another Item', 30, document.getElementById('itemQuantityAnother').value)">Add to Cart</button>
-          </div>
-        </div>
-      </div>
+    </footer>
 
-      <div class="col-md-6">
-        <h2>Your Cart:</h2>
-        <ul id="cart" class="list-group">
-          <!-- Cart items will be displayed here -->
-        </ul>
-        <div class="mt-3">
-          <button class="btn btn-success" onclick="calculateTotal()">Calculate Total</button>
-          <h3>Total Amount: <span id="totalAmount">0.00</span></h3>
-          <!-- Button to send data to the server -->
-          <button class="btn btn-primary" onclick="sendCartDataToServer()">Send Cart Data to Server</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- Script to handle the cart -->
+    <script>
+        function addToCart(product, price, quantity) {
+            alert(`Added to cart you can check the items in My cart:\nProduct: ${product}\nPrice: ₹${price}\nQuantity: ${quantity}`);
+            // Implement your cart logic here
+            // AJAX request
+      var xhr = new XMLHttpRequest();
+      var url = "store.php"; 
+      var params = "&product=" + encodeURIComponent(product) +
+                   "&price=" + encodeURIComponent(price) +
+                   "&quantity=" + encodeURIComponent(quantity);
+                   xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-  <!-- Add Bootstrap JS and jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <!-- Script to handle cart functionality -->
-  <script>
-    const cart = [];
-
-    function addToCart(item, price, quantity) {
-        // Validate quantity is a positive number
-  if (quantity <= 0) {
-    alert("Quantity should be a positive number.");
-    return;
-  }
-      const cartItem = {
-        item: item,
-        price: price,
-        quantity: quantity
-      };
-      cart.push(cartItem);
-      updateCartDisplay();
-    }
-
-    function updateCartDisplay() {
-      const cartList = document.getElementById("cart");
-      cartList.innerHTML = "";
-      cart.forEach((cartItem) => {
-        const listItem = document.createElement("li");
-        listItem.classList.add("list-group-item", "d-flex", "justify-content-between");
-        listItem.innerText = `${cartItem.item} - Rs. ${cartItem.price} - Quantity: ${cartItem.quantity}`;
-        cartList.appendChild(listItem);
-      });
-    }
-
-    function calculateTotal() {
-      let totalAmount = 0;
-      cart.forEach((cartItem) => {
-        totalAmount += cartItem.price * cartItem.quantity;
-      });
-      document.getElementById("totalAmount").textContent = totalAmount.toFixed(2);
-
-    }
-
-    function sendCartDataToServer() {
-      $.ajax({
-        type: "POST",
-        url: "rough.php",
-        data: { cartItems: cart },
-        success: function(response) {
-          // Handle the response from the server if needed
-          console.log(response);
-        },
-        error: function(xhr, status, error) {
-          // Handle errors if any
-          console.error(error);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            // Success response, do something if needed
+            console.log(xhr.responseText);
+          } else {
+            // Error handling
+            console.error("Error: " + xhr.status);
+          }
         }
-      });
-    }
-  </script>
-  <!-- Add Bootstrap JS and jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      };
 
- 
+      xhr.send(params);
+    }
+            
+    </script>
+
+
+<!-- for tabs and login this script is used  -->
+    <script>
+        $(document).ready(function () {
+            $('#myTab a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+        function logoutmsg() {
+            alert("You had successfully log out");
+        }
+    </script>
+    <!-- Add Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
+
+
+<?php 
+// Create connection
+$conn = new mysqli('localhost', 'root', '', 'grocery_data');
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$product = $_POST["product"];
+$price = $_POST["price"];
+$quantity = $_POST["quantity"];
+ // Prepare the SQL statement to insert data
+ $sql = "INSERT INTO cart (username, product_name, product_quantity	, total_amount)
+ VALUES ('$result', '$product', '$price', '$quantity')";
+
+ // Check if the query is successful
+ if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully!";
+     header("Location: store.php");
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+?>

@@ -98,3 +98,12 @@ header {
     height: 17%;
     width: 20%;
 }
+
+.text-center button.btn {
+    background-color: black;
+}
+
+.cart-link {
+    color: white;
+    background-color: blue;
+}

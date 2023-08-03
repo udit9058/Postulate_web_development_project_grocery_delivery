@@ -16,17 +16,19 @@
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
 
-    <nav class="navbar navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-dark bg-black text-white fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Maligai (Grocery)</a>
-                <button type="button" class="btn btn-outline-light">
-            <?php
-                        session_start();
-                        $conn = new mysqli('localhost','root','','grocery_data');
-                        $result = $_SESSION['username'];
-                        ?>
-                        <p>Welcome , <?php echo $result; ?> </p>
-            </button>
+            <div class="d-flex">
+                
+                <?php
+                session_start();
+                $conn = new mysqli('localhost', 'root', '', 'grocery_data');
+                $result = $_SESSION['username'];
+                ?>
+                <button type="button" class="btn btn-success btn-lg ms-3">
+                    <p>Welcome, <?php echo $result; ?></p>
+                </button>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
                 aria-label="Toggle navigation">
@@ -46,11 +48,11 @@
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:8080/grocery_app/store.php">Store</a>
+                            <a class="nav-link" href="store.php">Store</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="#">Cart</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link" href="#">About</a>
                         </li>
@@ -85,39 +87,53 @@
 
     <!-- From here card are implemented
       -->
-    <div class="card-group">
+      <class class="card-group">
         <div class="card">
             <img src="css/elements/f.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            <div class="p-3 mb-2 bg-black text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Choose what you want</h5>
+                    <p class="card-text">Select the items from your <br>favorite and near to your addressgrocery
+                        store.</p>
+                </div>
             </div>
         </div>
         <div class="card">
             <img src="css/elements/g.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            <div class="p-3 mb-2 bg-black text-white">
+                <div class="card-body">
+                    <h5 class="card-title">See real-time updates</h5>
+                    <p class="card-text">Personal shoppers pick items with care. Chat as they shop and manage your
+                        order.
+                    </p>
+                </div>
             </div>
         </div>
+
         <div class="card">
             <img src="css/elements/h.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                    content. This card has even longer content than the first to show that equal height action.</p>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            <div class="p-3 mb-2 bg-black text-white">
+                <div class="card-body">
+
+                    <h5 class="card-title">Get your same-day</h5>
+                    <p class="card-text">Pick a convenient time for you. Enjoy our 100% quality guarantee on every
+                        order.
+                    </p>
+                </div>
             </div>
         </div>
+    </class>
     </div>
     <!-- Here it is completed --->
 
     <!-- <hr> -->
 
-
+ <!-- Start Shopping Button -->
+ <div class="dark bg-black text-white">
+ <div class="text-center">
+      <button class="btn btn-lg text-white" style="background-color: #228b22;" ><a href="store.php" style="color: aliceblue;">Start Shopping</a></button>
+    </div>  
+ </div>
     <!-- From here carouse implemented
      -->
     <div id="carouselExampleCaptions" class="carousel slide">
@@ -159,7 +175,7 @@
 
 
     <!-- Footer section -->
-    <footer class="footer bg-dark text-light">
+    <footer class="footer bg-black text-white text-light">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
