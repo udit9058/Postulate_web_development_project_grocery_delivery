@@ -22,7 +22,7 @@
             <a class="navbar-brand" href="#">Maligai (Grocery)</a>
             <div class="d-flex">
                 <button type="button" class="btn btn-success btn-lg ms-3">
-                    <a class="nav-link btn btn-success" href="mycart.html">
+                    <a class="nav-link btn btn-success" href="mycart.php">
                         <i class="fas fa-shopping-cart"></i> My Cart
                     </a>
                 </button>
@@ -71,6 +71,8 @@
 
                     <a class="btn btn-success btn-lg" href="home.html" role="button" onclick="logoutmsg()">Log out</a>
                 </div>
+            </div>
+        </div>
     </nav>
 
     <hr>
@@ -87,7 +89,7 @@
                     aria-controls="profile" aria-selected="false">Fruits</a>
             </li>
         </ul>
-        <form action="store.php" method="post">
+
         <!-- Dairy -->
         <div class="tab-content mt-3">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -96,7 +98,7 @@
                     <div class="row">
                         <!-- Milk card -->
                         <div class="col-lg-4 col-md-6 mb-4">
-                            
+                            <!-- <form action="store.php" method="post"> -->
                             <div class="card">
                                 <img src="https://5.imimg.com/data5/VG/AQ/MY-9101930/amul-taaza-toned-milk-500x500.jpg"
                                     class="card-img-top" alt="Milk">
@@ -112,7 +114,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <!-- </form> -->
                         </div>
 
                         <!-- Curd card -->
@@ -243,7 +245,7 @@
                 </div>
             </div>
         </div>
-        </form>
+
     </div>
 
     <!-- Footer section -->
@@ -274,33 +276,33 @@
             alert(`Added to cart you can check the items in My cart:\nProduct: ${product}\nPrice: ₹${price}\nQuantity: ${quantity}`);
             // Implement your cart logic here
             // AJAX request
-      var xhr = new XMLHttpRequest();
-      var url = "store.php"; 
-      var params = "&product=" + encodeURIComponent(product) +
-                   "&price=" + encodeURIComponent(price) +
-                   "&quantity=" + encodeURIComponent(quantity);
-                   xhr.open("POST", url, true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            var xhr = new XMLHttpRequest();
+            var url = "store_data.php";
+            var params = "&product=" + encodeURIComponent(product) +
+                "&price=" + encodeURIComponent(price) +
+                "&quantity=" + encodeURIComponent(quantity);
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status === 200) {
-            // Success response, do something if needed
-            console.log(xhr.responseText);
-          } else {
-            // Error handling
-            console.error("Error: " + xhr.status);
-          }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Success response, do something if needed
+                        console.log(xhr.responseText);
+                    } else {
+                        // Error handling
+                        console.error("Error: " + xhr.status);
+                    }
+                }
+            };
+
+            xhr.send(params);
         }
-      };
 
-      xhr.send(params);
-    }
-            
     </script>
 
 
-<!-- for tabs and login this script is used  -->
+    <!-- for tabs and login this script is used  -->
     <script>
         $(document).ready(function () {
             $('#myTab a').click(function (e) {
@@ -321,27 +323,7 @@
 </html>
 
 
-<?php 
-// Create connection
-$conn = new mysqli('localhost', 'root', '', 'grocery_data');
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-$product = $_POST["product"];
-$price = $_POST["price"];
-$quantity = $_POST["quantity"];
- // Prepare the SQL statement to insert data
- $sql = "INSERT INTO cart (username, product_name, product_quantity	, total_amount)
- VALUES ('$result', '$product', '$price', '$quantity')";
-
- // Check if the query is successful
- if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully!";
-     header("Location: store.php");
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
+<?php
+// After processing and validating the cart data
+$_SESSION['username'] = $result;
 ?>

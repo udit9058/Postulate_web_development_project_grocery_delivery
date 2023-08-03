@@ -24,7 +24,7 @@
             <a class="navbar-brand" href="#">Maligai (Grocery)</a>
             <div class="d-flex">
                 <button type="button" class="btn btn-success btn-lg ms-3">
-                    <a class="nav-link btn btn-success" href="mycart.html">
+                    <a class="nav-link btn btn-success" href="mycart.php">
                         <i class="fas fa-shopping-cart"></i> My Cart
                     </a>
                 </button>
@@ -76,18 +76,55 @@
     </nav>
 
 
-    
 
+    <hr>
+    <div class="container mt-5">
+        <h1>My Cart</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Product Name</th>
+                        <th>Product Quantity</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
 
+            <tbody>
+                <?php
+                // Replace with your database connection details
+                $conn = new mysqli('localhost', 'root', '', 'grocery_data');
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
 
+                // Retrieve cart data from the cart table
+                $sql = "SELECT username, product_name, product_quantity, total_amount FROM cart";
+                $result = $conn->query($sql);
 
+                if ($result->num_rows > 0) {
+                    // Loop through each row in the cart table and display the data in the table rows
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["username"] . "</td>";
+                        echo "<td>" . $row["product_name"] . "</td>";
+                        echo "<td>" . $row["product_quantity"] . "</td>";
+                        echo "<td>" . $row["total_amount"] . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    // If there are no cart items, display a message in a single row of the table
+                    echo "<tr><td colspan='4'>No items in the cart.</td></tr>";
+                }
 
+                $conn->close();
+                ?>
+            </tbody>
+        </table>
 
-
-
-
-
-
+    </div>
+    </div>
 
     <script>
         $(document).ready(function () {
